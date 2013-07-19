@@ -76,7 +76,7 @@ describe Bovespa::Stock do
 	}
 
 	it "should parse a xml with one stock from bovespa to one Stock" do
-		HTTPClient.stub(:get_content).and_return(xml_one)
+		HTTPClient.any_instance.stub(:get_content).and_return(xml_one)
 
 		result = Bovespa.new.get(:VALE5)
 
@@ -85,7 +85,7 @@ describe Bovespa::Stock do
 	end
 
 	it "should parse a xml with two stocks from bovespa to one Stock" do
-		HTTPClient.stub(:get_content).and_return(xml_two)
+		HTTPClient.any_instance.stub(:get_content).and_return(xml_two)
 
 		result = Bovespa.new.get(:VALE5, :RDCD3)
 
