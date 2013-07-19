@@ -8,7 +8,7 @@ class Bovespa
 		attr_accessor :code, :name, :date, :opening_price, :min_price, :max_price, :average_price, :last_price, :variation
 
 		def to_s
-			"#{@code} - '#{@name}' #{@opening_price} #{@min_price} #{@max_price} #{@average_price} #{@last_price} #{@variation}"
+			"#{@code} - Open: #{@opening_price}  Last: #{@last_price}  Min: #{@min_price}  Max: #{@max_price}  Avg: #{@average_price}  Var: #{@variation}"
 		end
 	end
 
@@ -31,6 +31,6 @@ class Bovespa
 			result[st.code.to_sym] = st
 		end
 
-		return (stock_codes.size > 1 ? result : result[stock_codes.first])
+		(stock_codes.size > 1 ? result : result[stock_codes.first])
 	end
 end

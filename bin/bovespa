@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+require "bovespa-prices"
+
+unless ARGV.any?
+  puts <<-EOF
+
+  Usage:
+    bovespa PETR4
+    bovespa petr4          # lower case is ok
+    bovespa PETR4 VALE5    # multiple stock codes
+
+  EOF
+
+  exit
+end
+
+codes = ARGV.map {|code| code.upcase.to_sym}
+results = Bovespa.new.get *codes
+
+if results.kind_of? Bovespa::Stock
+  puts results
+elsif results.kind_of? Hash
+  results.each do |code, result|
+    puts result
+  end
+end

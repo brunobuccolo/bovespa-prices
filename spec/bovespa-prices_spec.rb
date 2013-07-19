@@ -30,18 +30,8 @@ describe Bovespa::Stock do
 	end
 
 	it 'should show all informations about stock' do
-		code = 'VALE5'
-		name = 'Vale'
-		opening_price = '50'
-		min_price = '49'
-		max_price = '51.4'
-		average_price = '50'
-		last_price = '50.45'
-		variation = '-2.45'
-
 		st = Bovespa::Stock.new
 		st.code = 'VALE5'
-		st.name = 'Vale'
 		st.opening_price = '50'
 		st.min_price = '49'
 		st.max_price = '51.4'
@@ -50,7 +40,6 @@ describe Bovespa::Stock do
 		st.variation = '-2.45'
 
 		st.to_s.include?('VALE5').should == true
-		st.to_s.include?('Vale').should == true
 		st.to_s.include?('50').should == true
 		st.to_s.include?('49').should == true
 		st.to_s.include?('51.4').should == true
@@ -81,7 +70,7 @@ describe Bovespa::Stock do
 		result = Bovespa.new.get(:VALE5)
 
 		result.should be_a_kind_of Bovespa::Stock
-		result.to_s.should == "VALE5 - 'VALE PNA     N1' 32.88 32.54 33.24 32.61 33.04 2.25"
+		result.to_s.should == "VALE5 - Open: 32.88  Last: 33.04  Min: 32.54  Max: 33.24  Avg: 32.61  Var: 2.25"
 	end
 
 	it "should parse a xml with two stocks from bovespa to one Stock" do
@@ -96,9 +85,9 @@ describe Bovespa::Stock do
 		result.should have_key :RDCD3
 
 		result[:VALE5].should be_a_kind_of Bovespa::Stock
-		result[:VALE5].to_s.should == "VALE5 - 'VALE PNA     N1' 32.88 32.54 33.24 32.61 33.04 2.25"
+		result[:VALE5].to_s.should == "VALE5 - Open: 32.88  Last: 33.04  Min: 32.54  Max: 33.24  Avg: 32.61  Var: 2.25"
 
 		result[:RDCD3].should be_a_kind_of Bovespa::Stock
-		result[:RDCD3].to_s.should == "RDCD3 - 'REDECARD ON      NM' 33.88 33.52 33.88 33.65 33.56 -0.71"
+		result[:RDCD3].to_s.should == "RDCD3 - Open: 33.88  Last: 33.56  Min: 33.52  Max: 33.88  Avg: 33.65  Var: -0.71"
 	end
 end
